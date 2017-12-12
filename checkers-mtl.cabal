@@ -17,13 +17,15 @@ library
   hs-source-dirs:      src
   exposed-modules:
     Test.Checkers
+    Test.Monad.Except
+    Test.Monad.Except.Checkers
     Test.Monad.State
     Test.Monad.State.Mutants
     Test.Monad.State.Checkers
     Test.Mutants
   build-depends:
     mtl,
-    QuickCheck,
+    QuickCheck >= 2.10,
     base >= 4.9 && < 5
   default-language:    Haskell2010
 
