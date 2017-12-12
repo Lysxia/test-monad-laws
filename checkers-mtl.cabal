@@ -1,0 +1,31 @@
+name:                checkers-mtl
+version:             0.1.0.0
+-- synopsis:
+-- description:
+homepage:            https://github.com/Lysxia/checkers-mtl#readme
+license:             MIT
+license-file:        LICENSE
+author:              Li-yao Xia
+maintainer:          lysxia@gmail.com
+copyright:           2017 Li-yao Xia
+category:            Data
+build-type:          Simple
+extra-source-files:  README.md
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:
+    Test.Checkers
+    Test.Monad.State
+    Test.Monad.State.Mutants
+    Test.Mutants
+  build-depends:
+    mtl,
+    QuickCheck,
+    base >= 4.9 && < 5
+  default-language:    Haskell2010
+
+source-repository head
+  type:     git
+  location: https://github.com/Lysxia/checkers-mtl
