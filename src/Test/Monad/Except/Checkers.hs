@@ -40,4 +40,4 @@ checkExcept' = do
 
   ko "mut-2-throw-catch" $ \e (Fn k) -> throw_catch @(MutantExcept2 Int) @Int e k
   ko "mut-2-catch-catch" $ \e (Fn h1) (Fn h2) -> catch_catch @(MutantExcept2 Int) @Int e h1 h2
-  ko "catch-bind" $ \a (Fn k) (Fn h) -> catch_bind @(MutantExcept2 Int) @Int @Int a k h
+  ko "mut-2-catch-bind" $ \a (Fn k) (Fn h) -> catch_bind @(MutantExcept2 Int) @Int @Int a k h
