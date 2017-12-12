@@ -8,6 +8,7 @@
 module Test.Monad.State.Mutants where
 
 import Control.Monad.State
+import Data.Functor.Identity
 import Test.QuickCheck
 
 import Test.Monad.State
@@ -38,6 +39,8 @@ data PutDoesNothing
 -- > 'bad_get_put_get'
 -- > 'bad_put_put'
 type MutantStateT s = Mutant PutDoesNothing (StateT s)
+
+type MutantState s = MutantStateT s Identity
 
 instance {-# OVERLAPPING #-}
   Monad m => MonadState s (MutantStateT s m) where
