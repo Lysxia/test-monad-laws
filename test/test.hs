@@ -12,3 +12,4 @@ main = do
   checkState'
   putStrLn "MonadExcept"
   checkExcept
+  checkExcept'

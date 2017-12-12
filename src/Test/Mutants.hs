@@ -15,12 +15,16 @@ import Control.Monad.Reader
 import Control.Monad.Except
 import Control.Monad.Writer
 import Data.Kind
+import Test.QuickCheck
 
 import Test.Checkers
 
 newtype Mutant v t (m :: Type -> Type) a = Mutant { mutate :: t m a }
-  deriving (Functor, Applicative, Alternative, Monad, MonadPlus,
-    MonadState s, MonadReader r, MonadError e, MonadWriter w)
+  deriving (
+    Eq, Ord, Show,
+    Functor, Applicative, Alternative, Monad, MonadPlus,
+    MonadState s, MonadReader r, MonadError e, MonadWriter w,
+    Arbitrary)
 
 deriving instance MonadTrans t => MonadTrans (Mutant v t)
 deriving instance EqProp (t m a) => EqProp (Mutant v t m a)

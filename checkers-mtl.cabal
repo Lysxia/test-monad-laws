@@ -19,9 +19,10 @@ library
     Test.Checkers
     Test.Monad.Except
     Test.Monad.Except.Checkers
+    Test.Monad.Except.Mutants
     Test.Monad.State
-    Test.Monad.State.Mutants
     Test.Monad.State.Checkers
+    Test.Monad.State.Mutants
     Test.Mutants
   build-depends:
     mtl,
