@@ -20,6 +20,8 @@ library
     Test.Monad.Except
     Test.Monad.Except.Checkers
     Test.Monad.Except.Mutants
+    Test.Monad.Reader
+    Test.Monad.Reader.Checkers
     Test.Monad.State
     Test.Monad.State.Checkers
     Test.Monad.State.Mutants
