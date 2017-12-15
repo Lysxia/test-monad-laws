@@ -8,6 +8,7 @@
 module Test.Monad.Except where
 
 import Control.Monad.Except
+import Data.Either
 import Data.Functor
 import Test.QuickCheck
 
@@ -55,6 +56,10 @@ catch_bind m k h =
   ==> catchError (m >>= k) h
       =-=
       (m >>= \x -> catchError (k x) h)
+
+-- | This should be a monad homomorphism.
+except :: forall m a e. MonadError e m => Either e a -> m a
+except = either throwError return
 
 --
 

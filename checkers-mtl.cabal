@@ -23,6 +23,7 @@ library
     Test.Monad.State
     Test.Monad.State.Checkers
     Test.Monad.State.Mutants
+    Test.Monad.Morph
     Test.Mutants
   build-depends:
     mtl,
