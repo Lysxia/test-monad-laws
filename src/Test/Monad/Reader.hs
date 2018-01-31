@@ -29,6 +29,7 @@ local_ask f = local f ask =-= fmap @m f ask
 
 -- Also:
 -- - 'local' and 'reader' should be monad homomorphisms.
+-- - 'ask' should have no effect.
 
 -- * Secondary laws
 
