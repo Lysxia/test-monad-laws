@@ -28,10 +28,12 @@ library
     Test.Monad.State.Checkers
     Test.Monad.State.Mutants
     Test.Monad.Trans
+    Test.Monad.Trans.Mutants
     Test.Monad.Morph
     Test.Mutants
   build-depends:
     monad-control,
+    transformers,
     transformers-base,
     mtl,
     QuickCheck >= 2.10,
