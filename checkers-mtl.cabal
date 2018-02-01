@@ -19,6 +19,7 @@ library
     Test.Checkers
     Test.Monad.Base
     Test.Monad.Control
+    Test.Monad.Control.Mutants
     Test.Monad.Except
     Test.Monad.Except.Checkers
     Test.Monad.Except.Mutants
