@@ -47,17 +47,17 @@ liftWith_restoreT
   => t m a -> Equation (t m a)
 liftWith_restoreT t = (liftWith (\run -> run t) >>= restoreT . return) :=: t
 
-liftBaseControl :: forall m n a. MonadBaseControl n m => n a -> m a
+liftBaseControl :: forall m a n. MonadBaseControl n m => n a -> m a
 liftBaseControl n = liftBaseWith (\_ -> n)
 
 liftBaseWith_liftBase
-  :: forall m n a
+  :: forall m a n
   .  MonadBaseControl n m
   => n a -> Equation (m a)
 liftBaseWith_liftBase n = liftBaseControl @m n :=: liftBase n
 
 liftBaseWith_restoreM
-  :: forall m n a
+  :: forall m a n
   .  MonadBaseControl n m
   => m a -> Equation (m a)
 liftBaseWith_restoreM m = (liftBaseWith (\run -> run m) >>= restoreM) :=: m

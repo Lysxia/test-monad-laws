@@ -2,6 +2,7 @@ module Main where
 
 import Test.QuickCheck
 
+import Test.Monad.Control.Checkers
 import Test.Monad.Except.Checkers
 import Test.Monad.Reader.Checkers
 import Test.Monad.State.Checkers
@@ -17,3 +18,5 @@ main = do
   putStrLn "MonadReader"
   checkReader
   checkReader'
+  putStrLn "Monad*Control"
+  checkControl

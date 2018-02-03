@@ -20,6 +20,7 @@ library
     Test.Checkers.Instances
     Test.Monad.Base
     Test.Monad.Control
+    Test.Monad.Control.Checkers
     Test.Monad.Control.Mutants
     Test.Monad.Except
     Test.Monad.Except.Checkers
@@ -34,6 +35,7 @@ library
     Test.Monad.Trans.Mutants
     Test.Monad.Morph
     Test.Mutants
+    Test.SmallList
   build-depends:
     monad-control,
     transformers,
