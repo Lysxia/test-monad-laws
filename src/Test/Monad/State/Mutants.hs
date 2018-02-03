@@ -43,4 +43,4 @@ type MutantState s = MutantStateT s Identity
 instance {-# OVERLAPPING #-}
   Monad m => MonadState s (MutantStateT s m) where
   get = Mutant get
-  put s = Mutant $ StateT $ \s -> return ((), s)  -- "oops"
+  put _s = Mutant $ StateT $ \s -> return ((), s)  -- "oops"
