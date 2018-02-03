@@ -32,6 +32,6 @@ state' = state . runState
 
 -- * Misc
 
-instance (EqProp (m (a, s)), Arbitrary s, Show s)
-  => EqProp (StateT s m a) where
+instance (TestEq (m (a, s)), Arbitrary s, Show s)
+  => TestEq (StateT s m a) where
   StateT f =? StateT g = property $ \s -> f s :=: g s

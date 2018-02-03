@@ -47,6 +47,6 @@ local_id m = local id m :=: m
 
 --
 
-instance (EqProp (m a), Arbitrary r, Show r)
-  => EqProp (ReaderT r m a) where
+instance (TestEq (m a), Arbitrary r, Show r)
+  => TestEq (ReaderT r m a) where
   ReaderT f =? ReaderT g = property $ \r -> f r :=: g r

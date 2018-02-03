@@ -27,4 +27,4 @@ newtype Mutant v t (m :: Type -> Type) a = Mutant { mutate :: t m a }
     Arbitrary)
 
 deriving instance MonadTrans t => MonadTrans (Mutant v t)
-deriving instance EqProp (t m a) => EqProp (Mutant v t m a)
+deriving instance TestEq (t m a) => TestEq (Mutant v t m a)

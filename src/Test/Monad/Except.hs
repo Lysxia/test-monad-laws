@@ -64,7 +64,7 @@ except = either throwError return
 
 --
 
-instance EqProp (m (Either e a)) => EqProp (ExceptT e m a) where
+instance TestEq (m (Either e a)) => TestEq (ExceptT e m a) where
   ExceptT m =? ExceptT n = m =? n
 
 instance Arbitrary (m (Either e a)) => Arbitrary (ExceptT e m a) where
