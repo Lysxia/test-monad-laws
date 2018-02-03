@@ -1,14 +1,11 @@
 {-# LANGUAGE AllowAmbiguousTypes #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE UndecidableInstances #-}
 
 module Test.Monad.State where
 
 import Control.Monad.State
-import Test.QuickCheck
 
 import Test.Checkers
 
@@ -29,9 +26,3 @@ put_put s1 s2 = (put s1 >> put s2) :=: put @_ @m s2
 -- | This is equivalent to 'state', which should be a monad homomorphism.
 state' :: forall m a s. MonadState s m => State s a -> m a
 state' = state . runState
-
--- * Misc
-
-instance (TestEq (m (a, s)), Arbitrary s, Show s)
-  => TestEq (StateT s m a) where
-  StateT f =? StateT g = property $ \s -> f s :=: g s

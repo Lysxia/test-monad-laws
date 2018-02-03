@@ -5,6 +5,7 @@ module Test.Monad.State.Checkers where
 import Control.Monad.State
 
 import Test.Checkers
+import Test.Checkers.Instances ()
 import Test.Monad.State
 import Test.Monad.State.Mutants
 

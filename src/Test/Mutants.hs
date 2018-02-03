@@ -4,6 +4,7 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE PolyKinds #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeFamilies #-}
 
 module Test.Mutants where
 
@@ -28,3 +29,7 @@ newtype Mutant v t (m :: Type -> Type) a = Mutant { mutate :: t m a }
 
 deriving instance MonadTrans t => MonadTrans (Mutant v t)
 deriving instance TestEq (t m a) => TestEq (Mutant v t m a)
+
+instance Example (t m a) => Example (Mutant v t m a) where
+  type Repr (Mutant v t m a) = Repr (t m a)
+  fromRepr = Mutant . fromRepr

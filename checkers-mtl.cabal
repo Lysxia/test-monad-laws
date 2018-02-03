@@ -17,6 +17,7 @@ library
   hs-source-dirs:      src
   exposed-modules:
     Test.Checkers
+    Test.Checkers.Instances
     Test.Monad.Base
     Test.Monad.Control
     Test.Monad.Control.Mutants

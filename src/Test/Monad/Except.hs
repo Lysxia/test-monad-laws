@@ -1,14 +1,11 @@
 {-# LANGUAGE AllowAmbiguousTypes #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE UndecidableInstances #-}
 
 module Test.Monad.Except where
 
 import Control.Monad.Except
-import Test.QuickCheck
 
 import Test.Checkers
 
@@ -59,11 +56,3 @@ catch_bind m k h =
 -- | This should be a monad homomorphism.
 except :: forall m a e. MonadError e m => Either e a -> m a
 except = either throwError return
-
---
-
-instance TestEq (m (Either e a)) => TestEq (ExceptT e m a) where
-  ExceptT m =? ExceptT n = m =? n
-
-instance Arbitrary (m (Either e a)) => Arbitrary (ExceptT e m a) where
-  arbitrary = ExceptT <$> arbitrary

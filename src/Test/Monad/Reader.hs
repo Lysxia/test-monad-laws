@@ -1,14 +1,11 @@
 {-# LANGUAGE AllowAmbiguousTypes #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE UndecidableInstances #-}
 
 module Test.Monad.Reader where
 
 import Control.Monad.Reader
-import Test.QuickCheck
 
 import Test.Checkers
 
@@ -43,9 +40,3 @@ local_id
   .  MonadReader r m
   => m a -> Equation (m a)
 local_id m = local id m :=: m
-
---
-
-instance (TestEq (m a), Arbitrary r, Show r)
-  => TestEq (ReaderT r m a) where
-  ReaderT f =? ReaderT g = property $ \r -> f r :=: g r
