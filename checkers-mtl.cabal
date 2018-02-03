@@ -1,7 +1,8 @@
 name:                checkers-mtl
 version:             0.1.0.0
--- synopsis:
--- description:
+synopsis:
+  Laws for monadic effects (`mtl`, freer) as testable properties.
+description:         See README
 homepage:            https://github.com/Lysxia/checkers-mtl#readme
 license:             MIT
 license-file:        LICENSE
