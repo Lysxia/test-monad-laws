@@ -6,7 +6,6 @@ import Control.Monad.Reader
 import Test.QuickCheck
 
 import Test.Checkers
-import Test.Mutants
 import Test.Monad.Morph
 import Test.Monad.Reader
 

@@ -3,10 +3,8 @@
 module Test.Monad.State.Checkers where
 
 import Control.Monad.State
-import Test.QuickCheck
 
 import Test.Checkers
-import Test.Mutants
 import Test.Monad.State
 import Test.Monad.State.Mutants
 

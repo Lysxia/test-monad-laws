@@ -6,9 +6,7 @@ module Test.Monad.Except.Mutants where
 
 import Control.Monad.Except
 import Data.Functor.Identity
-import Test.QuickCheck
 
-import Test.Monad.Except
 import Test.Checkers
 import Test.Mutants
 

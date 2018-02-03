@@ -8,8 +8,6 @@
 module Test.Monad.Except where
 
 import Control.Monad.Except
-import Data.Either
-import Data.Functor
 import Test.QuickCheck
 
 import Test.Checkers

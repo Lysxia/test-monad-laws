@@ -7,7 +7,6 @@
 module Test.Monad.Trans where
 
 import Control.Monad.Trans
-import Test.QuickCheck
 
 import Test.Monad.Morph
 import Test.Checkers

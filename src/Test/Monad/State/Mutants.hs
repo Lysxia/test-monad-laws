@@ -9,9 +9,7 @@ module Test.Monad.State.Mutants where
 
 import Control.Monad.State
 import Data.Functor.Identity
-import Test.QuickCheck
 
-import Test.Monad.State
 import Test.Checkers
 import Test.Mutants
 

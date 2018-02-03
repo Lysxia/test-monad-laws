@@ -8,7 +8,6 @@
 module Test.Monad.Base where
 
 import Control.Monad.Base
-import Test.QuickCheck
 
 import Test.Monad.Morph
 import Test.Checkers

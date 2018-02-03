@@ -5,8 +5,6 @@
 
 module Test.Monad.Morph where
 
-import Test.QuickCheck
-
 import Test.Checkers
 
 bindHom

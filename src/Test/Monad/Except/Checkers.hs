@@ -6,7 +6,6 @@ import Control.Monad.Except
 import Test.QuickCheck
 
 import Test.Checkers
-import Test.Mutants
 import Test.Monad.Except
 import Test.Monad.Except.Mutants
 

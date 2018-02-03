@@ -6,11 +6,7 @@ module Test.Monad.Control.Mutants where
 
 import Control.Monad.State
 import Control.Monad.Trans.Control
-import Data.Functor
-import Test.QuickCheck
 
-import Test.Monad.Control
-import Test.Checkers
 import Test.Mutants
 
 mutantLiftWith

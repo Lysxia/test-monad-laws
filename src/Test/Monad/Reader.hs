@@ -8,7 +8,6 @@
 module Test.Monad.Reader where
 
 import Control.Monad.Reader
-import Data.Functor
 import Test.QuickCheck
 
 import Test.Checkers

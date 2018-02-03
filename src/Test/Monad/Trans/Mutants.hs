@@ -4,11 +4,8 @@ module Test.Monad.Trans.Mutants where
 
 import Control.Monad.Trans
 import Control.Monad.Trans.Maybe
-import Data.Functor
-import Test.QuickCheck
+import Data.Functor (($>))
 
-import Test.Monad.Trans
-import Test.Checkers
 import Test.Mutants
 
 -- | An general way to get 'MonadTrans' wrong is to run the base

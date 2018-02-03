@@ -14,8 +14,8 @@ import Control.Monad.State
 import Control.Monad.Reader
 import Control.Monad.Except
 import Control.Monad.Writer
-import Data.Kind
-import Test.QuickCheck
+import Data.Kind (Type)
+import Test.QuickCheck (Arbitrary)
 
 import Test.Checkers
 

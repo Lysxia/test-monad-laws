@@ -11,7 +11,6 @@ module Test.Monad.Control where
 import Control.Monad.Base
 import Control.Monad.Trans
 import Control.Monad.Trans.Control
-import Test.QuickCheck
 
 import Test.Monad.Morph
 import Test.Checkers
