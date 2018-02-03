@@ -32,11 +32,11 @@ class (Arbitrary (Repr a), Show (Repr a)) => Example a where
   fromRepr :: Repr a -> a
 
 -- | A named property that should pass.
-ok :: MoreTestable prop => String -> prop -> IO ()
-ok s = quickCheck . counterexample s . test
+ok :: MoreTestable prop => String -> prop -> (String, Property)
+ok s prop = (s, test prop)
 
 -- | A named property that should fail.
-ko :: MoreTestable prop => String -> prop -> IO ()
+ko :: MoreTestable prop => String -> prop -> (String, Property)
 ko s = ok s . expectFailure . test
 
 

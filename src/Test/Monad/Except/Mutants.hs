@@ -80,8 +80,6 @@ data CatchTwice
 --
 -- > 'throw_catch'
 -- > 'catch_catch'
--- > 'catch_bind'
---
 type MutantExcept2T e = Mutant CatchTwice (ExceptT e)
 
 type MutantExcept2 e = MutantExcept2T e Identity

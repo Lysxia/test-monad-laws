@@ -52,21 +52,20 @@ type family (xs :: [k]) ++ (ys :: [k]) :: [k] where
   (x ': xs) ++ ys = x ': xs ++ ys
 
 class TestControl (xs :: [[(Type -> Type) -> (Type -> Type)]]) (m :: Type -> Type) where
-  testControl :: IO ()
+  testControl :: [(String, [(String, Property)])]
 
 instance TestControl '[] m where
-  testControl = return ()
+  testControl = []
 
 instance
   (  TestTransControl ts m, TestBaseControl ts m, TestControl tss m
   ,  Typeable (StackT ts m)
   )
   => TestControl (ts ': tss) m where
-  testControl = do
-    print (typeRep (Proxy @(StackT ts m)))
-    testTransControl @ts @m
-    testBaseControl @ts @m
-    testControl @tss @m
+  testControl =
+    ( show (typeRep (Proxy @(StackT ts m)))
+    , testTransControl @ts @m ++ testBaseControl @ts @m
+    ) : testControl @tss @m
 
 type family StackT (ts :: [(Type -> Type) -> (Type -> Type)]) (m :: Type -> Type) :: Type -> Type where
   StackT '[] m = m
@@ -75,41 +74,41 @@ type family StackT (ts :: [(Type -> Type) -> (Type -> Type)]) (m :: Type -> Type
 type Stack ts = StackT ts Identity
 
 class TestTransControl (ts :: [(Type -> Type) -> (Type -> Type)]) (m :: Type -> Type) where
-  testTransControl :: IO ()
+  testTransControl :: [(String, Property)]
 
 instance TestTransControl '[] m where
-  testTransControl = return ()
+  testTransControl = []
 
 instance
   (  MonadTransControl t, Monad (StackT (t ': ts) m), Monad (StackT ts m)
   ,  Example (StackT (t ': ts) m Int), Example (StackT ts m Int)
   ,  TestEq (StackT (t ': ts) m Int))
   => TestTransControl (t ': ts) m where
-  testTransControl = (do
-    ok "liftWith-return"   (liftWith_return @t @n @Int)
-    ok "liftWith-bind"     (\m (Fn k) -> liftWith_bind @t @n @Int @Int m k)
-    ok "liftWith-lift"     (liftWith_lift @t @n @Int)
-    ok "liftWith-restoreT" (liftWith_restoreT @t @n @Int)
-    ) :: forall n. (n ~ StackT ts m) => IO ()
+  testTransControl =
+    [ ok "liftWith-return"   (liftWith_return @t @n @Int)
+    , ok "liftWith-bind"     (\m (Fn k) -> liftWith_bind @t @n @Int @Int m k)
+    , ok "liftWith-lift"     (liftWith_lift @t @n @Int)
+    , ok "liftWith-restoreT" (liftWith_restoreT @t @n @Int)
+    ] :: forall n. (n ~ StackT ts m) => [(String, Property)]
 
 class TestBaseControl (ts :: [(Type -> Type) -> (Type -> Type)]) (m :: Type -> Type) where
-  testBaseControl :: IO ()
+  testBaseControl :: [(String, Property)]
 
 instance
   (  MonadBaseControl m (StackT ts m)
   ,  Example (StackT ts m Int), Example (m Int)
   ,  TestEq (StackT ts m Int))
   => TestBaseControl ts m where
-  testBaseControl = (do
-    ok "liftBaseWith-liftBase" (liftBaseWith_liftBase @n @Int)
-    ok "liftBaseWith-restoreM" (liftBaseWith_restoreM @n @Int)
-    ) :: forall n. (n ~ StackT ts m) => IO ()
+  testBaseControl =
+    [ ok "liftBaseWith-liftBase" (liftBaseWith_liftBase @n @Int)
+    , ok "liftBaseWith-restoreM" (liftBaseWith_restoreM @n @Int)
+    ] :: forall n. (n ~ StackT ts m) => [(String, Property)]
 
 type StdTrans = '[ ReaderT Int, StateT Int, ExceptT Int ]
 
 type StdStacks = Replicate 2 StdTrans
 
-checkControl :: IO ()
-checkControl = do
-  testControl @StdStacks @Identity
+checkControl :: [(String, [(String, Property)])]
+checkControl =
+  testControl @StdStacks @Identity ++
   testControl @StdStacks @SmallList
