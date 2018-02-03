@@ -1,3 +1,5 @@
+-- | A manual mutation testing framework for monads and transformers.
+
 {-# LANGUAGE DeriveFunctor #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE KindSignatures #-}
@@ -20,6 +22,24 @@ import Test.QuickCheck (Arbitrary)
 
 import Test.Checkers
 
+-- | The type @Mutant v t m a@ is isomorphic to @t m a@, and inherits
+-- various instances from it.
+--
+-- > class MyClass m where
+-- >   myMethod :: m ()
+-- >
+-- > deriving instance MyClass (t m) => MyClass (Mutant v t m)
+--
+-- The first parameter @v@ is phantom, and identifies a "mutation".
+--
+-- A new mutation can be declared as a datatype.
+--
+-- > data BugInMyClass
+--
+-- Use overlapping instances to "mutate" an implementation.
+--
+-- > instance {-# OVERLAPPING #-> MyClass (Mutant BugInMyClass t m) where
+-- >   myMethod = wrongMethod
 newtype Mutant v t (m :: Type -> Type) a = Mutant { mutate :: t m a }
   deriving (
     Eq, Ord, Show,
