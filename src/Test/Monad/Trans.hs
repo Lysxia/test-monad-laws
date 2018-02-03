@@ -14,12 +14,12 @@ import Test.Checkers
 
 lift_return
   :: forall t m a
-  .  (MonadTrans t, Monad m, Monad (t m), EqProp (t m a))
-  => a -> Property
-lift_return = returnHom @_ @(t m) lift 
+  .  (MonadTrans t, Monad m, Monad (t m))
+  => a -> Equation (t m a)
+lift_return = returnHom @_ @(t m) lift
 
 lift_bind
   :: forall t m a b
-  .  (MonadTrans t, Monad m, Monad (t m), EqProp (t m b))
-  => m a -> (a -> m b) -> Property
+  .  (MonadTrans t, Monad m, Monad (t m))
+  => m a -> (a -> m b) -> Equation (t m b)
 lift_bind = bindHom @_ @(t m) lift

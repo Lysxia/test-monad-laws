@@ -15,11 +15,11 @@ import Test.Monad.State
 import Test.Checkers
 import Test.Mutants
 
-bad_get_put_get :: forall m s. (MonadState s m, EqProp (m s)) => s -> Property
-bad_get_put_get s = (put s >> get) =-= (get >>= \s' -> put s >> return @m s')
+bad_get_put_get :: forall m s. MonadState s m => s -> Equation (m s)
+bad_get_put_get s = (put s >> get) :=: (get >>= \s' -> put s >> return @m s')
 
-bad_put_put :: forall m s. (MonadState s m, EqProp (m ())) => s -> s -> Property
-bad_put_put s1 s2 = (put s1 >> put s2) =-= put @_ @m s1
+bad_put_put :: forall m s. MonadState s m => s -> s -> Equation (m ())
+bad_put_put s1 s2 = (put s1 >> put s2) :=: put @_ @m s1
 
 -- * 'StateT' mutant
 

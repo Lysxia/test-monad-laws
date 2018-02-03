@@ -15,41 +15,41 @@ import Test.Mutants
 -- Notice the different type
 bad_throwZero
   :: forall m b e
-  .  (MonadError e m, EqProp (m b))
-  => e -> (e -> m b) -> Property
-bad_throwZero e k = (throwError e >>= k) =-= k e
+  .  MonadError e m
+  => e -> (e -> m b) -> Equation (m b)
+bad_throwZero e k = (throwError e >>= k) :=: k e
 
 bad_throw_catch
   :: forall m a e
-  .  (MonadError e m, EqProp (m a))
-  => e -> (e -> m a) -> Property
-bad_throw_catch e h = catchError (throwError e) h =-= throwError e
+  .  MonadError e m
+  => e -> (e -> m a) -> Equation (m a)
+bad_throw_catch e h = catchError (throwError e) h :=: throwError e
 
 bad_catch_catch_1
   :: forall m a e
-  .  (MonadError e m, EqProp (m a))
-  => m a -> (e -> m a) -> (e -> m a) -> Property
+  .  MonadError e m
+  => m a -> (e -> m a) -> (e -> m a) -> Equation (m a)
 bad_catch_catch_1 m h1 h2 =
   catchError (catchError m h1) h2
-  =-=
+  :=:
   catchError m h1
 
 bad_catch_catch_2
   :: forall m a e
-  .  (MonadError e m, EqProp (m a))
-  => m a -> (e -> m a) -> (e -> m a) -> Property
+  .  MonadError e m
+  => m a -> (e -> m a) -> (e -> m a) -> Equation (m a)
 bad_catch_catch_2 m h1 h2 =
   catchError (catchError m h1) h2
-  =-=
+  :=:
   catchError m h2
 
 bad_catch_bind
   :: forall m a b e
-  .  (MonadError e m, Eq (m ()), EqProp (m b))
-  => m a -> (a -> m b) -> (e -> m b) -> Property
+  .  MonadError e m
+  => m a -> (a -> m b) -> (e -> m b) -> Equation (m b)
 bad_catch_bind m k h =
   catchError (m >>= k) h
-  =-=
+  :=:
   (m >>= \x -> catchError (k x) h)
 
 ---

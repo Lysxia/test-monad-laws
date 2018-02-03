@@ -15,12 +15,12 @@ import Test.Checkers
 
 liftBase_return
   :: forall m n a
-  .  (MonadBase n m, EqProp (m a))
-  => a -> Property
+  .  MonadBase n m
+  => a -> Equation (m a)
 liftBase_return = returnHom @_ @m liftBase
 
 liftBase_bind
   :: forall m n a b
-  .  (MonadBase n m, EqProp (m b))
-  => n a -> (a -> n b) -> Property
+  .  MonadBase n m
+  => n a -> (a -> n b) -> Equation (m b)
 liftBase_bind = bindHom @_ @m liftBase
