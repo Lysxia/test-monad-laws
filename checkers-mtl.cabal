@@ -25,6 +25,7 @@ library
     Test.Monad.Except.Mutants
     Test.Monad.Reader
     Test.Monad.Reader.Checkers
+    Test.Monad.Reader.Mutants
     Test.Monad.State
     Test.Monad.State.Checkers
     Test.Monad.State.Mutants

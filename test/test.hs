@@ -16,3 +16,4 @@ main = do
   checkExcept'
   putStrLn "MonadReader"
   checkReader
+  checkReader'

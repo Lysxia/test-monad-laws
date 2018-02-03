@@ -77,6 +77,11 @@ instance TestEq a => TestEq (Maybe a) where
   Nothing =? Nothing = property True
   _ =? _ = property False
 
+instance TestEq a => TestEq [a] where
+  [] =? [] = property True
+  a : as =? b : bs = a =? b .&&. as =? bs
+  _ =? _ = property False
+
 instance TestEq Int where
   (=?) = decEq
 
