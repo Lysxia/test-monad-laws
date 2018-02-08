@@ -32,6 +32,9 @@ library
     Test.Monad.State
     Test.Monad.State.Checkers
     Test.Monad.State.Mutants
+    Test.Monad.Writer
+    Test.Monad.Writer.Checkers
+    Test.Monad.Writer.Mutants
     Test.Monad.Trans
     Test.Monad.Trans.Mutants
     Test.Monad.Morph

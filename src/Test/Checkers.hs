@@ -9,6 +9,7 @@
 module Test.Checkers where
 
 import Data.Functor.Identity
+import Data.Monoid
 import Test.QuickCheck
 import qualified Test.QuickCheck.Function as QC
 import qualified Test.QuickCheck.Property as QC
@@ -157,6 +158,10 @@ instance Example Int where
   type Repr Int = Int
   fromRepr = id
 
+instance Example a => Example (Sum a) where
+  type Repr (Sum a) = Repr a
+  fromRepr = Sum . fromRepr
+
 
 -- 'TestEq' instances
 
@@ -189,3 +194,5 @@ instance TestEq Int where
 instance TestEq () where
   (=?) = decEq
 
+instance TestEq a => TestEq (Sum a) where
+  Sum a =? Sum b = a =? b

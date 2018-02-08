@@ -7,6 +7,7 @@ module Test.Checkers.Instances where
 import Control.Monad.Except
 import Control.Monad.Reader
 import Control.Monad.State
+import Control.Monad.Writer
 
 import Test.Checkers
 
@@ -30,3 +31,10 @@ instance Example (s -> m (a, s)) => Example (StateT s m a) where
 
 instance TestEq (s -> m (a, s)) => TestEq (StateT s m a) where
   StateT f =? StateT g = f =? g
+
+instance TestEq (m (a, w)) => TestEq (WriterT w m a) where
+  WriterT m =? WriterT n = m =? n
+
+instance Example (m (a, w)) => Example (WriterT w m a) where
+  type Repr (WriterT w m a) = Repr (m (a, w))
+  fromRepr = WriterT . fromRepr
