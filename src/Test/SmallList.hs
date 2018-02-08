@@ -16,7 +16,9 @@ newtype SmallList a = SmallList [a]
   deriving (Eq, Ord, Show, Functor, Applicative, Monad)
 
 instance Arbitrary a => Arbitrary (SmallList a) where
-  arbitrary = SmallList <$> scale logInt arbitrary
+  arbitrary = sized $ \n -> do
+      k <- choose (0, logInt n)
+      SmallList <$> vectorOf k arbitrary
     where
       logInt n | n > 0 = 1 + logInt (n `div` 2)
       logInt _ = 0
