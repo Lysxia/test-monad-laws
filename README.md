@@ -5,9 +5,9 @@ A library for testing implementations of `mtl` classes.
 checkers-mtl defines laws for monadic effects (`mtl`, freer) as testable
 properties.
 
-Currently supported classes:
+Supported classes:
 
-- `mtl`: `MonadExcept`, `MonadReader`, `MonadState`
+- `mtl`: `MonadExcept`, `MonadReader`, `MonadState`, `MonadWriter`
 - `transformers`: `MonadTrans`
 - `transformers-base`: `MonadBase`
 - `monad-control`: `MonadTransControl`, `MonadBaseControl`
