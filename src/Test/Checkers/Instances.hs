@@ -8,6 +8,7 @@ import Control.Monad.Except
 import Control.Monad.Reader
 import Control.Monad.State
 import Control.Monad.Writer
+import Test.QuickCheck
 
 import Test.Checkers
 
@@ -38,3 +39,5 @@ instance TestEq (m (a, w)) => TestEq (WriterT w m a) where
 instance Example (m (a, w)) => Example (WriterT w m a) where
   type Repr (WriterT w m a) = Repr (m (a, w))
   fromRepr = WriterT . fromRepr
+
+instance Function a => Function (Sum a)

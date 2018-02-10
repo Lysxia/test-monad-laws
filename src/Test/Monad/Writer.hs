@@ -41,7 +41,18 @@ listen_tell
 listen_tell w =
   fmap snd (listen (tell w)) :=: (tell w >> return w)
 
--- TODO: pass laws
+listen_listen
+  :: forall m a w
+  .  MonadWriter w m
+  => m a -> Equation (m ((a, w), w))
+listen_listen m = listen (listen m) :=: fmap (\(a, w) -> ((a, w), w)) (listen m)
+
+listen_pass
+  :: forall m a w
+  .  MonadWriter w m
+  => m (a, w -> w) -> Equation (m (a, w))
+listen_pass m =
+  listen (pass m) :=: pass (fmap (\((a, f), w) -> ((a, f w), f)) (listen m))
 
 -- | This is equivalent to 'writer', which should be a monad homomorphism.
 writer' :: forall m a w. MonadWriter w m => Writer w a -> m a
