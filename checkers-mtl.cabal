@@ -17,8 +17,6 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:
-    Test.Checkers
-    Test.Checkers.Instances
     Test.Monad.Base
     Test.Monad.Control
     Test.Monad.Control.Checkers
@@ -26,6 +24,7 @@ library
     Test.Monad.Except
     Test.Monad.Except.Checkers
     Test.Monad.Except.Mutants
+    Test.Monad.Instances
     Test.Monad.Reader
     Test.Monad.Reader.Checkers
     Test.Monad.Reader.Mutants
@@ -46,6 +45,7 @@ library
     transformers-base,
     mtl,
     QuickCheck >= 2.10,
+    quickcheck-higherorder,
     base >= 4.9 && < 5
   ghc-options:         -Wall -Wno-orphans
   default-language:    Haskell2010

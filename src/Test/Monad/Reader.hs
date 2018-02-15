@@ -6,8 +6,7 @@
 module Test.Monad.Reader where
 
 import Control.Monad.Reader
-
-import Test.Checkers
+import Test.QuickCheck.HigherOrder (Equation(..))
 
 -- * Primary laws
 

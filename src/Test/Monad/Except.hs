@@ -6,8 +6,7 @@
 module Test.Monad.Except where
 
 import Control.Monad.Except
-
-import Test.Checkers
+import Test.QuickCheck.HigherOrder (Equation(..), Implication(..), EqImpl)
 
 throwZero
   :: forall m b a e

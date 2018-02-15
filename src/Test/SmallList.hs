@@ -7,8 +7,7 @@ module Test.SmallList where
 import Control.Monad.Base
 import Control.Monad.Trans.Control
 import Test.QuickCheck
-
-import Test.Checkers
+import Test.QuickCheck.HigherOrder (Constructible(..), TestEq(..))
 
 -- | Isomorphic to @[]@, but its arbitrary instance
 -- generates very small lists.
@@ -24,7 +23,7 @@ instance Arbitrary a => Arbitrary (SmallList a) where
       logInt _ = 0
   shrink (SmallList as) = fmap SmallList (shrink as)
 
-instance Example a => Example (SmallList a) where
+instance Constructible a => Constructible (SmallList a) where
   type Repr (SmallList a) = SmallList (Repr a)
   fromRepr = fmap fromRepr
 

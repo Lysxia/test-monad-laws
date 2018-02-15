@@ -6,8 +6,7 @@
 module Test.Monad.State where
 
 import Control.Monad.State
-
-import Test.Checkers
+import Test.QuickCheck.HigherOrder (Equation(..))
 
 -- * 'MonadState' laws
 

@@ -6,8 +6,8 @@ module Test.Monad.Writer.Mutants where
 
 import Control.Monad.Writer
 import Data.Functor.Identity
+import Test.QuickCheck.HigherOrder (Equation(..))
 
-import Test.Checkers
 import Test.Mutants
 
 bad_listen_tell

@@ -8,9 +8,9 @@
 module Test.Monad.Base where
 
 import Control.Monad.Base
+import Test.QuickCheck.HigherOrder (Equation(..))
 
 import Test.Monad.Morph
-import Test.Checkers
 
 liftBase_return
   :: forall m n a

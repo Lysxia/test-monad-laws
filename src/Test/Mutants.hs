@@ -19,8 +19,7 @@ import Control.Monad.Except
 import Control.Monad.Writer
 import Data.Kind (Type)
 import Test.QuickCheck (Arbitrary)
-
-import Test.Checkers
+import Test.QuickCheck.HigherOrder (TestEq(..), Constructible(..))
 
 -- | The type @Mutant v t m a@ is isomorphic to @t m a@, and inherits
 -- various instances from it.
@@ -50,6 +49,6 @@ newtype Mutant v t (m :: Type -> Type) a = Mutant { mutate :: t m a }
 deriving instance MonadTrans t => MonadTrans (Mutant v t)
 deriving instance TestEq (t m a) => TestEq (Mutant v t m a)
 
-instance Example (t m a) => Example (Mutant v t m a) where
+instance Constructible (t m a) => Constructible (Mutant v t m a) where
   type Repr (Mutant v t m a) = Repr (t m a)
   fromRepr = Mutant . fromRepr

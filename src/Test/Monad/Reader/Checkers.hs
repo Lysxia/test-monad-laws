@@ -4,9 +4,9 @@ module Test.Monad.Reader.Checkers where
 
 import Control.Monad.Reader
 import Test.QuickCheck (Property)
+import Test.QuickCheck.HigherOrder (ok, ko)
 
-import Test.Checkers
-import Test.Checkers.Instances ()
+import Test.Monad.Instances ()
 import Test.Monad.Morph
 import Test.Monad.Reader
 import Test.Monad.Reader.Mutants

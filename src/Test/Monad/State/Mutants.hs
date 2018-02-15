@@ -9,8 +9,8 @@ module Test.Monad.State.Mutants where
 
 import Control.Monad.State
 import Data.Functor.Identity
+import Test.QuickCheck.HigherOrder (Equation(..))
 
-import Test.Checkers
 import Test.Mutants
 
 bad_get_put_get :: forall m s. MonadState s m => s -> Equation (m s)

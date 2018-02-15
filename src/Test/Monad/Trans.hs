@@ -7,9 +7,9 @@
 module Test.Monad.Trans where
 
 import Control.Monad.Trans
+import Test.QuickCheck.HigherOrder (Equation(..))
 
 import Test.Monad.Morph
-import Test.Checkers
 
 lift_return
   :: forall t m a

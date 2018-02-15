@@ -4,9 +4,9 @@ module Test.Monad.State.Checkers where
 
 import Control.Monad.State
 import Test.QuickCheck (Property)
+import Test.QuickCheck.HigherOrder (ok, ko)
 
-import Test.Checkers
-import Test.Checkers.Instances ()
+import Test.Monad.Instances ()
 import Test.Monad.State
 import Test.Monad.State.Mutants
 

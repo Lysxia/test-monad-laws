@@ -4,9 +4,9 @@ module Test.Monad.Except.Checkers where
 
 import Control.Monad.Except
 import Test.QuickCheck (Property)
+import Test.QuickCheck.HigherOrder (ok, ko)
 
-import Test.Checkers
-import Test.Checkers.Instances ()
+import Test.Monad.Instances ()
 import Test.Monad.Except
 import Test.Monad.Except.Mutants
 

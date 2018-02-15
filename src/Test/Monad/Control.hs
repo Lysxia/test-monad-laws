@@ -11,9 +11,9 @@ module Test.Monad.Control where
 import Control.Monad.Base
 import Control.Monad.Trans
 import Control.Monad.Trans.Control
+import Test.QuickCheck.HigherOrder (Equation(..))
 
 import Test.Monad.Morph
-import Test.Checkers
 
 -- * 'MonadState' laws
 

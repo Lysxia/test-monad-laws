@@ -25,9 +25,9 @@ import Data.Proxy (Proxy(Proxy))
 import Data.Typeable (Typeable, typeRep)
 import GHC.TypeLits
 import Test.QuickCheck
+import Test.QuickCheck.HigherOrder
 
-import Test.Checkers
-import Test.Checkers.Instances ()
+import Test.Monad.Instances ()
 import Test.Monad.Control
 import Test.SmallList
 
@@ -81,7 +81,7 @@ instance TestTransControl '[] m where
 
 instance
   (  MonadTransControl t, Monad (StackT (t ': ts) m), Monad (StackT ts m)
-  ,  Example (StackT (t ': ts) m Int), Example (StackT ts m Int)
+  ,  Constructible (StackT (t ': ts) m Int), Constructible (StackT ts m Int)
   ,  TestEq (StackT (t ': ts) m Int))
   => TestTransControl (t ': ts) m where
   testTransControl =
@@ -96,7 +96,7 @@ class TestBaseControl (ts :: [(Type -> Type) -> (Type -> Type)]) (m :: Type -> T
 
 instance
   (  MonadBaseControl m (StackT ts m)
-  ,  Example (StackT ts m Int), Example (m Int)
+  ,  Constructible (StackT ts m Int), Constructible (m Int)
   ,  TestEq (StackT ts m Int))
   => TestBaseControl ts m where
   testBaseControl =

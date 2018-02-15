@@ -3,8 +3,7 @@
 module Test.Monad.Writer where
 
 import Control.Monad.Writer
-
-import Test.Checkers
+import Test.QuickCheck.HigherOrder (Equation(..))
 
 tell_tell
   :: forall m w

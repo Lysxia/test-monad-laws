@@ -6,8 +6,8 @@ module Test.Monad.Except.Mutants where
 
 import Control.Monad.Except
 import Data.Functor.Identity
+import Test.QuickCheck.HigherOrder (Equation(..))
 
-import Test.Checkers
 import Test.Mutants
 
 -- Notice the different type

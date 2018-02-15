@@ -4,9 +4,9 @@ module Test.Monad.Writer.Checkers where
 
 import Control.Monad.Writer
 import Test.QuickCheck (Property)
+import Test.QuickCheck.HigherOrder (ok, ko)
 
-import Test.Checkers
-import Test.Checkers.Instances ()
+import Test.Monad.Instances ()
 import Test.Monad.Writer
 import Test.Monad.Writer.Mutants
 

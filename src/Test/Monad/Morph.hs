@@ -5,7 +5,7 @@
 
 module Test.Monad.Morph where
 
-import Test.Checkers
+import Test.QuickCheck.HigherOrder (Equation(..))
 
 -- | Natural transformation.
 type m ~> n = forall t. m t -> n t
