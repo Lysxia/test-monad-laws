@@ -38,7 +38,7 @@ import Test.Checkers
 --
 -- Use overlapping instances to "mutate" an implementation.
 --
--- > instance {-# OVERLAPPING #-> MyClass (Mutant BugInMyClass t m) where
+-- > instance {-# OVERLAPPING #-} MyClass (Mutant BugInMyClass t m) where
 -- >   myMethod = wrongMethod
 newtype Mutant v t (m :: Type -> Type) a = Mutant { mutate :: t m a }
   deriving (
