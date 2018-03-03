@@ -26,3 +26,7 @@ Related links and references
 
 - Just `do` it: Simple Monadic Equational Reasoning. Jeremy Gibbons, Ralf Hinze.
 - Proof abstraction for imperative languages. William L. Harrison.
+
+Hackage search terms:
+[laws](https://hackage.haskell.org/packages/search?terms=laws),
+[properties](https://hackage.haskell.org/packages/search?terms=properties).
