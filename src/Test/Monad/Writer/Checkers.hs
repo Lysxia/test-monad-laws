@@ -1,25 +1,40 @@
+{-# LANGUAGE AllowAmbiguousTypes #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TypeApplications #-}
 
 module Test.Monad.Writer.Checkers where
 
 import Control.Monad.Writer
-import Test.QuickCheck (Property)
-import Test.QuickCheck.HigherOrder (ok, ko)
+import Test.QuickCheck (CoArbitrary, Function, Property)
+import Test.QuickCheck.HigherOrder (Constructible, TestEq, ok, ko)
 
 import Test.Monad.Instances ()
 import Test.Monad.Writer
 import Test.Monad.Writer.Mutants
 
-checkWriter :: [(String, Property)]
+checkWriter
+  :: forall m a b w
+  .  ( MonadWriter w m
+     , CoArbitrary b
+     , Function b
+     , Show b
+     , Constructible a, Constructible w, Constructible (m a), Constructible (m b)
+     , Constructible (m (a, w -> w))
+     , TestEq (m ()), TestEq (m (a, w)), TestEq (m w), TestEq (m ((a, w), w)) )
+  => [(String, Property)]
 checkWriter =
-  [ ok "tell-tell"     (tell_tell     @(Writer (Sum Int)))
-  , ok "tell-mempty"   (tell_mempty   @(Writer (Sum Int)))
-  , ok "listen-return" (listen_return @(Writer (Sum Int)) @Int)
-  , ok "listen-bind"   (listen_bind   @(Writer (Sum Int)) @Int @Int)
-  , ok "listen-tell"   (listen_tell   @(Writer (Sum Int)))
-  , ok "listen-listen" (listen_listen @(Writer (Sum Int)) @Int)
-  , ok "listen-pass"   (listen_pass   @(Writer (Sum Int)) @Int)
+  [ ok "tell-tell"     (tell_tell     @m)
+  , ok "tell-mempty"   (tell_mempty   @m)
+  , ok "listen-return" (listen_return @m @a)
+  , ok "listen-bind"   (listen_bind   @m @b @a)
+  , ok "listen-tell"   (listen_tell   @m)
+  , ok "listen-listen" (listen_listen @m @a)
+  , ok "listen-pass"   (listen_pass   @m @a)
   ]
+
+checkWriter_ :: [(String, Property)]
+checkWriter_ = checkWriter @(Writer (Sum Int)) @Int @Int
 
 checkWriter' :: [(String, Property)]
 checkWriter' =

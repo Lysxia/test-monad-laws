@@ -1,24 +1,38 @@
+{-# LANGUAGE AllowAmbiguousTypes #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TypeApplications #-}
 
 module Test.Monad.Except.Checkers where
 
 import Control.Monad.Except
-import Test.QuickCheck (Property)
-import Test.QuickCheck.HigherOrder (ok, ko)
+import Test.QuickCheck (CoArbitrary, Function, Property)
+import Test.QuickCheck.HigherOrder (Constructible, TestEq, ok, ko)
 
 import Test.Monad.Instances ()
 import Test.Monad.Except
 import Test.Monad.Except.Mutants
 
-checkExcept :: [(String, Property)]
+checkExcept
+  :: forall m a b e
+  .  ( MonadError e m
+     , Eq (m ()), TestEq (m a)
+     , Show a, Show b, Show e
+     , Function b, Function e
+     , CoArbitrary b, CoArbitrary e
+     , Constructible a, Constructible e, Constructible (m a), Constructible (m b))
+  => [(String, Property)]
 checkExcept =
-  [ ok "throwZero"    (throwZero @(Except Int) @Int @Int)
-  , ok "throw-catch"  (throw_catch @(Except Int) @Int)
-  , ok "catch-throw"  (catch_throw @(Except Int) @Int)
-  , ok "catch-catch"  (catch_catch @(Except Int) @Int)
-  , ok "catch-return" (catch_return @(Except Int) @Int)
-  , ok "catch-bind"   (catch_bind @(Except Int) @Int @Int)
+  [ ok "throwZero"    (throwZero @m @a @b)
+  , ok "throw-catch"  (throw_catch @m @a)
+  , ok "catch-throw"  (catch_throw @m @a)
+  , ok "catch-catch"  (catch_catch @m @a)
+  , ok "catch-return" (catch_return @m @a)
+  , ok "catch-bind"   (catch_bind @m @b @a)
   ]
+
+checkExcept_ :: [(String, Property)]
+checkExcept_ = checkExcept @(Either Int) @Int @Int
 
 checkExcept' :: [(String, Property)]
 checkExcept' =

@@ -23,25 +23,25 @@ tests = testGroup "Tests"
 
 testsState :: TestTree
 testsState = testGroup "MonadState"
-  [ testProperties "Normal" checkState
+  [ testProperties "Normal" checkState_
   , testProperties "Mutant" checkState'
   ]
 
 testsExcept :: TestTree
 testsExcept = testGroup "MonadExcept"
-  [ testProperties "Normal" checkExcept
+  [ testProperties "Normal" checkExcept_
   , testProperties "Mutant" checkExcept'
   ]
 
 testsReader :: TestTree
 testsReader = testGroup "MonadReader"
-  [ testProperties "Normal" checkReader
+  [ testProperties "Normal" checkReader_
   , testProperties "Mutant" checkReader'
   ]
 
 testsWriter :: TestTree
 testsWriter = testGroup "MonadWriter"
-  [ testProperties "Normal" checkWriter
+  [ testProperties "Normal" checkWriter_
   , testProperties "Mutant" checkWriter'
   ]
 
