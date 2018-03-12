@@ -23,12 +23,26 @@ checkExcept
      , Constructible a, Constructible e, Constructible (m a), Constructible (m b))
   => [(String, Property)]
 checkExcept =
+  checkExcept0 @m @a @b ++
+  [ ok "catch-bind"   (catch_bind @m @b @a)
+  ]
+
+-- | Without 'catch_bind', which has a problematic 'Eq' constraint.
+checkExcept0
+  :: forall m a b e
+  .  ( MonadError e m
+     , TestEq (m a)
+     , Show a, Show b, Show e
+     , Function b, Function e
+     , CoArbitrary b, CoArbitrary e
+     , Constructible a, Constructible e, Constructible (m a), Constructible (m b))
+  => [(String, Property)]
+checkExcept0 =
   [ ok "throwZero"    (throwZero @m @a @b)
   , ok "throw-catch"  (throw_catch @m @a)
   , ok "catch-throw"  (catch_throw @m @a)
   , ok "catch-catch"  (catch_catch @m @a)
   , ok "catch-return" (catch_return @m @a)
-  , ok "catch-bind"   (catch_bind @m @b @a)
   ]
 
 checkExcept_ :: [(String, Property)]
