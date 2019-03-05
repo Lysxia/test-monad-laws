@@ -64,5 +64,5 @@ checkExcept' =
 
   , ko "mut-2-throw-catch" (throw_catch @(MutantExcept2 Int) @Int)
   , ko "mut-2-catch-catch" (catch_catch @(MutantExcept2 Int) @Int)
-  , ok "mut-2-catch-bind"  (catch_bind @(MutantExcept2 Int) @Int @Int)
+  , ko "mut-2-catch-bind"  (catch_bind @(MutantExcept2 Int) @Int @Int)
   ]

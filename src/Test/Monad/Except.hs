@@ -44,13 +44,18 @@ catch_return a h = catchError (return a) h :=: return a
 catch_bind
   :: forall m a b e
   .  MonadError e m
-  => m a -> (a -> m b) -> (e -> m b) -> EqImpl (m ()) (m b)
+  => m a -> (a -> m b) -> (e -> m b) -> Equation (m b)
 catch_bind m k h =
-  catchError (void m) (\_ -> return ()) :=: void m
-  :==>
-    catchError (m >>= k) h
-    :=:
-    (m >>= \x -> catchError (k x) h)
+  catchError (m >>= k) h
+  :=:
+  (tryError m >>= either h (\a -> catchError (k a) h))
+
+-- TODO: remove
+tryError
+  :: forall m a e
+  .  MonadError e m
+  => m a -> m (Either e a)
+tryError m = catchError (fmap Right m) (pure . Left)
 
 -- | This should be a monad homomorphism.
 except :: forall m a e. MonadError e m => Either e a -> m a
