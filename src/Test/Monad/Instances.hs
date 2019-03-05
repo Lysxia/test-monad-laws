@@ -38,5 +38,3 @@ instance TestEq (m (a, w)) => TestEq (WriterT w m a) where
 instance Constructible (m (a, w)) => Constructible (WriterT w m a) where
   type Repr (WriterT w m a) = Repr (m (a, w))
   fromRepr = WriterT . fromRepr
-
-instance Function a => Function (Sum a)

@@ -44,7 +44,7 @@ library
     transformers,
     transformers-base,
     mtl,
-    QuickCheck >= 2.10,
+    QuickCheck >= 2.12,
     quickcheck-higherorder,
     base >= 4.9 && < 5
   ghc-options:         -Wall -Wno-orphans
