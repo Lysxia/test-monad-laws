@@ -16,9 +16,8 @@ import Test.Monad.Writer.Mutants
 checkWriter
   :: forall m a b w
   .  ( MonadWriter w m
-     , CoArbitrary b
-     , Function b
-     , Show b
+     , CoArbitrary b, Function b, Show b
+     , CoArbitrary w, Function w, Show w
      , Constructible a, Constructible w, Constructible (m a), Constructible (m b)
      , Constructible (m (a, w -> w))
      , TestEq (m ()), TestEq (m (a, w)), TestEq (m w), TestEq (m ((a, w), w)) )
@@ -31,6 +30,7 @@ checkWriter =
   , ok "listen-tell"   (listen_tell   @m)
   , ok "listen-listen" (listen_listen @m @a)
   , ok "listen-pass"   (listen_pass   @m @a)
+  , ok "pass-tell"     (pass_tell   @m)
   ]
 
 checkWriter_ :: [(String, Property)]

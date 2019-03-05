@@ -2,6 +2,7 @@
 
 module Test.Monad.Writer where
 
+import Data.Functor (($>))
 import Control.Monad.Writer
 import Test.QuickCheck.HigherOrder (Equation(..))
 
@@ -52,6 +53,13 @@ listen_pass
   => m (a, w -> w) -> Equation (m (a, w))
 listen_pass m =
   listen (pass m) :=: pass (fmap (\((a, f), w) -> ((a, f w), f)) (listen m))
+
+pass_tell
+  :: forall m w
+  .  MonadWriter w m
+  => w -> (w -> w) -> Equation (m ())
+pass_tell w f =
+  pass (tell w $> ((), f)) :=: tell (f w)
 
 -- | This is equivalent to 'writer', which should be a monad homomorphism.
 writer' :: forall m a w. MonadWriter w m => Writer w a -> m a
