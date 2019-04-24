@@ -41,6 +41,7 @@ catch_return
   => a -> (e -> m a) -> Equation (m a)
 catch_return a h = catchError (return a) h :=: return a
 
+-- Broken by @StateT s (Except e)@.
 catch_bind
   :: forall m a b e
   .  MonadError e m

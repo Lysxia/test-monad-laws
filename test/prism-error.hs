@@ -41,4 +41,4 @@ trans g = runPrismErrorT g
 type M = PrismErrorT Int (Either Int Word) (ExceptT (Either Int Word) (StateT Int []))
 
 main :: IO ()
-main = defaultMain . testProperties "PrismError" $ checkExcept0 @M @Int @Int
+main = defaultMain . testProperties "PrismError" $ checkExcept @M @Int @Int

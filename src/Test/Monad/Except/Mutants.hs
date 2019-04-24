@@ -1,10 +1,13 @@
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Test.Monad.Except.Mutants where
 
 import Control.Monad.Except
+import Control.Monad.State
 import Data.Functor.Identity
 import Test.QuickCheck.HigherOrder (Equation(..))
 
@@ -91,3 +94,15 @@ instance {-# OVERLAPPING #-}
     where
       h e = mutate (h' e)
 
+data Recoverable
+
+type MutantRStateT s = Mutant Recoverable (StateT s)
+
+instance {-# OVERLAPPING #-}
+  MonadError (e, s) m => MonadError e (MutantRStateT s m) where
+  throwError e = Mutant (do
+    s <- get
+    throwError (e, s))
+  catchError (Mutant m) h' = Mutant (m `catchError` h)
+    where
+      h (e, s) = StateT (\_ -> runStateT (mutate (h' e)) s)
