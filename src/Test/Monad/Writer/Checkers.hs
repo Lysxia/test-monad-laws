@@ -6,6 +6,7 @@
 module Test.Monad.Writer.Checkers where
 
 import Control.Monad.Writer
+import Control.Monad.State (StateT)
 import Test.QuickCheck (CoArbitrary, Function, Property)
 import Test.QuickCheck.HigherOrder (Constructible, TestEq, ok, ko)
 
@@ -34,7 +35,9 @@ checkWriter =
   ]
 
 checkWriter_ :: [(String, Property)]
-checkWriter_ = checkWriter @(Writer (Sum Int)) @Int @Int
+checkWriter_
+  =  checkWriter @(Writer (Sum Int)) @Int @Int
+  ++ checkWriter @(StateT Int (Writer (Sum Int))) @Int @Int
 
 checkWriter' :: [(String, Property)]
 checkWriter' =

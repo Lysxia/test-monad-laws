@@ -5,6 +5,7 @@
 module Test.Monad.Reader.Checkers where
 
 import Control.Monad.Reader
+import Control.Monad.State (StateT)
 import Test.QuickCheck (CoArbitrary, Function, Property)
 import Test.QuickCheck.HigherOrder (Constructible, TestEq, ok, ko)
 
@@ -31,7 +32,9 @@ checkReader =
   ]
 
 checkReader_ :: [(String, Property)]
-checkReader_ = checkReader @(Reader Int) @Int @Int
+checkReader_
+  =  checkReader @(Reader Int) @Int @Int
+  ++ checkReader @(StateT Int (Reader Int)) @Int @Int
 
 type Mutant1 = MutantReader LocalId Int
 type Mutant2 = MutantReaderT LocalRunsTwice Int []
