@@ -6,8 +6,8 @@ module Test.Monad.Reader.Checkers where
 
 import Control.Monad.Reader
 import Control.Monad.State (StateT)
-import Test.QuickCheck (CoArbitrary, Function, Property)
-import Test.QuickCheck.HigherOrder (Constructible, TestEq, ok, ko)
+import Test.QuickCheck (Property)
+import Test.QuickCheck.HigherOrder (CoArbitrary, Constructible, TestEq, ok, ko)
 
 import Test.Monad.Instances ()
 import Test.Monad.Morph
@@ -17,8 +17,6 @@ import Test.Monad.Reader.Mutants
 checkReader
   :: forall m a b r
   .  ( MonadReader r m
-     , Show b, Show r
-     , Function b, Function r
      , CoArbitrary b, CoArbitrary r
      , Constructible a, Constructible r, Constructible (m a), Constructible (m b)
      , TestEq (m a), TestEq (m r))
@@ -30,6 +28,7 @@ checkReader =
   , ok "bindHom-local"   (\f -> bindHom @m @_ @b @a (local f))
   , ok "returnHom-local" (\f -> returnHom @m @_ @a (local f))
   ]
+{-# NOINLINE checkReader #-}
 
 checkReader_ :: [(String, Property)]
 checkReader_
@@ -53,3 +52,4 @@ checkReader' =
   , ko "mut-2-bindHom-local"   (\f -> bindHom @Mutant2 @_ @Int @Int (local f))
   , ok "mut-2-returnHom-local" (\f -> returnHom @Mutant2 @_ @Int (local f))
   ]
+{-# NOINLINE checkReader' #-}

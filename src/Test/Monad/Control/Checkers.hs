@@ -6,6 +6,7 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE PolyKinds #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -24,7 +25,7 @@ import Data.Kind (Type)
 import Data.Proxy (Proxy(Proxy))
 import Data.Typeable (Typeable, typeRep)
 import GHC.TypeLits
-import Test.QuickCheck
+import Test.QuickCheck (Property, pattern Fn)
 import Test.QuickCheck.HigherOrder
 
 import Test.Monad.Instances ()
@@ -90,6 +91,7 @@ instance
     , ok "liftWith-lift"     (liftWith_lift @t @n @Int)
     , ok "liftWith-restoreT" (liftWith_restoreT @t @n @Int)
     ] :: forall n. (n ~ StackT ts m) => [(String, Property)]
+  {-# NOINLINE testTransControl #-}
 
 class TestBaseControl (ts :: [(Type -> Type) -> (Type -> Type)]) (m :: Type -> Type) where
   testBaseControl :: [(String, Property)]
@@ -103,6 +105,7 @@ instance
     [ ok "liftBaseWith-liftBase" (liftBaseWith_liftBase @n @Int)
     , ok "liftBaseWith-restoreM" (liftBaseWith_restoreM @n @Int)
     ] :: forall n. (n ~ StackT ts m) => [(String, Property)]
+  {-# NOINLINE testBaseControl #-}
 
 type StdTrans = '[ ReaderT Int, StateT Int, ExceptT Int ]
 

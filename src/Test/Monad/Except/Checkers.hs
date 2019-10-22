@@ -7,8 +7,8 @@ module Test.Monad.Except.Checkers where
 
 import Control.Monad.Except
 import Control.Monad.State
-import Test.QuickCheck (CoArbitrary, Function, Property)
-import Test.QuickCheck.HigherOrder (Constructible, TestEq, ok, ko)
+import Test.QuickCheck (Property)
+import Test.QuickCheck.HigherOrder (CoArbitrary, Constructible, TestEq, ok, ko)
 
 import Test.Monad.Instances ()
 import Test.Monad.Except
@@ -17,10 +17,8 @@ import Test.Monad.Except.Mutants
 checkExcept
   :: forall m a b e
   .  ( MonadError e m
-     , TestEq (m a)
-     , Show a, Show b, Show e
-     , Function b, Function e
      , CoArbitrary b, CoArbitrary e
+     , TestEq (m a)
      , Constructible a, Constructible e, Constructible (m a), Constructible (m b))
   => [(String, Property)]
 checkExcept =
@@ -30,6 +28,7 @@ checkExcept =
   , ok "catch-catch"  (catch_catch @m @a)  -- this takes one minute in test/prism-error?!
   , ok "catch-return" (catch_return @m @a)
   ]
+{-# NOINLINE checkExcept #-}
 
 checkExcept_ :: [(String, Property)]
 checkExcept_ =
@@ -61,3 +60,4 @@ checkExcept' =
   , ko "mut-2-catch-catch" (catch_catch @(MutantExcept2 Int) @Int)
   , ko "mut-2-catch-bind"  (catch_bind @(MutantExcept2 Int) @Int @Int)
   ]
+{-# NOINLINE checkExcept' #-}

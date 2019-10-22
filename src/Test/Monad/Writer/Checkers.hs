@@ -7,8 +7,8 @@ module Test.Monad.Writer.Checkers where
 
 import Control.Monad.Writer
 import Control.Monad.State (StateT)
-import Test.QuickCheck (CoArbitrary, Function, Property)
-import Test.QuickCheck.HigherOrder (Constructible, TestEq, ok, ko)
+import Test.QuickCheck (Property)
+import Test.QuickCheck.HigherOrder (CoArbitrary, Constructible, TestEq, ok, ko)
 
 import Test.Monad.Instances ()
 import Test.Monad.Writer
@@ -17,8 +17,7 @@ import Test.Monad.Writer.Mutants
 checkWriter
   :: forall m a b w
   .  ( MonadWriter w m
-     , CoArbitrary b, Function b, Show b
-     , CoArbitrary w, Function w, Show w
+     , CoArbitrary b, CoArbitrary w
      , Constructible a, Constructible w, Constructible (m a), Constructible (m b)
      , Constructible (m (a, w -> w))
      , TestEq (m ()), TestEq (m (a, w)), TestEq (m w), TestEq (m ((a, w), w)) )
@@ -33,6 +32,7 @@ checkWriter =
   , ok "listen-pass"   (listen_pass   @m @a)
   , ok "pass-tell"     (pass_tell   @m)
   ]
+{-# NOINLINE checkWriter #-}
 
 checkWriter_ :: [(String, Property)]
 checkWriter_
@@ -55,3 +55,4 @@ checkWriter' =
 
   , ko "mut-4-listen-pass"   (listen_pass     @(MutantWriter PassDoesNothing (Sum Int)) @Int)
   ]
+{-# NOINLINE checkWriter' #-}
