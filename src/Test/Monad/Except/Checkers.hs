@@ -7,7 +7,7 @@ module Test.Monad.Except.Checkers where
 
 import Control.Monad.Except
 import Control.Monad.State
-import Test.QuickCheck (Property)
+import Test.QuickCheck (Gen, Property)
 import Test.QuickCheck.HigherOrder (CoArbitrary, Constructible, TestEq, ok, ko)
 
 import Test.Monad.Instances ()
@@ -17,7 +17,7 @@ import Test.Monad.Except.Mutants
 checkExcept
   :: forall m a b e
   .  ( MonadError e m
-     , CoArbitrary b, CoArbitrary e
+     , CoArbitrary Gen b, CoArbitrary Gen e
      , TestEq (m a)
      , Constructible a, Constructible e, Constructible (m a), Constructible (m b))
   => [(String, Property)]

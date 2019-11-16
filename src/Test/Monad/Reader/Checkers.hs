@@ -1,12 +1,14 @@
-{-# LANGUAGE AllowAmbiguousTypes #-}
-{-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE
+    AllowAmbiguousTypes,
+    FlexibleContexts,
+    ScopedTypeVariables,
+    TypeApplications #-}
 
 module Test.Monad.Reader.Checkers where
 
 import Control.Monad.Reader
 import Control.Monad.State (StateT)
-import Test.QuickCheck (Property)
+import Test.QuickCheck (Gen, Property)
 import Test.QuickCheck.HigherOrder (CoArbitrary, Constructible, TestEq, ok, ko)
 
 import Test.Monad.Instances ()
@@ -17,7 +19,7 @@ import Test.Monad.Reader.Mutants
 checkReader
   :: forall m a b r
   .  ( MonadReader r m
-     , CoArbitrary b, CoArbitrary r
+     , CoArbitrary Gen b, CoArbitrary Gen r
      , Constructible a, Constructible r, Constructible (m a), Constructible (m b)
      , TestEq (m a), TestEq (m r))
   => [(String, Property)]

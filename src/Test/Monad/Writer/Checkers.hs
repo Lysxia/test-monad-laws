@@ -7,7 +7,7 @@ module Test.Monad.Writer.Checkers where
 
 import Control.Monad.Writer
 import Control.Monad.State (StateT)
-import Test.QuickCheck (Property)
+import Test.QuickCheck (Gen, Property)
 import Test.QuickCheck.HigherOrder (CoArbitrary, Constructible, TestEq, ok, ko)
 
 import Test.Monad.Instances ()
@@ -17,7 +17,7 @@ import Test.Monad.Writer.Mutants
 checkWriter
   :: forall m a b w
   .  ( MonadWriter w m
-     , CoArbitrary b, CoArbitrary w
+     , CoArbitrary Gen b, CoArbitrary Gen w
      , Constructible a, Constructible w, Constructible (m a), Constructible (m b)
      , Constructible (m (a, w -> w))
      , TestEq (m ()), TestEq (m (a, w)), TestEq (m w), TestEq (m ((a, w), w)) )

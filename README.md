@@ -21,9 +21,9 @@ Related links and references
 - [validity](https://github.com/NorfairKing/validity)
 - [checkers](https://hackage.haskell.org/package/checkers)
 - [quickcheck-classes](http://hackage.haskell.org/package/quickcheck-classes)
+- [hedgehog-classes](https://hackage.haskell.org/package/hedgehog-classes)
 - [ClassLaws](https://hackage.haskell.org/package/ClassLaws)
 - [test-invariant](https://hackage.haskell.org/package/test-invariant-0.4.5.0/docs/Test-Invariant.html)
-- [hedgehog-classes](https://hackage.haskell.org/package/hedgehog-classes)
 
 - Just `do` it: Simple Monadic Equational Reasoning. Jeremy Gibbons, Ralf Hinze.
 - Proof abstraction for imperative languages. William L. Harrison.

@@ -7,7 +7,7 @@ module Test.Monad.Cont.Checkers where
 
 import Control.Monad.Cont
 import Control.Monad.State
-import Test.QuickCheck (Property)
+import Test.QuickCheck (Gen, Property)
 import Test.QuickCheck.HigherOrder (CoArbitrary, Constructible, TestEq, ok, ko)
 
 import Test.Monad.Instances ()
@@ -18,7 +18,7 @@ checkCont ::
   forall m a b.
   ( MonadCont m
   , TestEq (m a)
-  , CoArbitrary b, CoArbitrary (m b)
+  , CoArbitrary Gen b, CoArbitrary Gen (m b)
   , Constructible a, Constructible (m a), Constructible (m b)
   ) =>
   [(String, Property)]
