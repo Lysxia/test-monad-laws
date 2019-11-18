@@ -8,8 +8,8 @@
 import Test.Tasty
 import Test.Tasty.QuickCheck
 
-import Test.Monad.Except.Checkers
-import Test.QuickCheck
+import Test.Monad.Except.Checkers (checkExcept)
+import Test.SmallList (SmallList)
 import Test.QuickCheck.HigherOrder
 
 import Control.Monad.State
@@ -38,7 +38,7 @@ trans :: forall m e f a. (MonadError e m, Prism e f)
   => (forall n. MonadError f n => n a) -> m a
 trans g = runPrismErrorT g
 
-type M = PrismErrorT Int (Either Int Word) (ExceptT (Either Int Word) (StateT Int []))
+type M = PrismErrorT Int (Either Int Word) (ExceptT (Either Int Word) (StateT Int SmallList))
 
 main :: IO ()
 main = defaultMain . testProperties "PrismError" $ checkExcept @M @Int @Int
