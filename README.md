@@ -5,6 +5,10 @@ A library for testing implementations of *mtl* classes.
 *test-monad-laws* defines laws for monadic effects as QuickCheck
 properties.
 
+To use this library,
+[*quickcheck-higherorder*](https://hackage.haskell.org/package/quickcheck-higherorder)
+is also needed.
+
 Supported classes:
 
 - `mtl`: `MonadExcept`, `MonadReader`, `MonadState`, `MonadWriter`
