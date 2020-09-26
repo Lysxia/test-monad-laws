@@ -12,12 +12,14 @@ import Test.QuickCheck.HigherOrder (Equation(..))
 
 import Test.Monad.Morph
 
+-- | > liftBase (return x) = return x
 liftBase_return
   :: forall m n a
   .  MonadBase n m
   => a -> Equation (m a)
 liftBase_return = returnHom @_ @m liftBase
 
+-- | > liftBase (m >>= k) = (liftBase m >>= liftBase k)
 liftBase_bind
   :: forall m n a b
   .  MonadBase n m
