@@ -1,0 +1,6 @@
+resolver: lts-16.16
+packages:
+- '.'
+extra-deps:
+- 'quickcheck-higherorder-0.1.0.0'
+- 'test-fun-0.1.0.0'
