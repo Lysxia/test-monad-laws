@@ -8,7 +8,7 @@ module Test.Monad.Cont.Checkers where
 import Control.Monad.Cont
 import Control.Monad.State
 import Test.QuickCheck (Gen, Property)
-import Test.QuickCheck.HigherOrder (CoArbitrary, Constructible, TestEq, ok, ko)
+import Test.QuickCheck.HigherOrder (CoArbitrary, Constructible, TestEq, ok)
 
 import Test.Monad.Instances ()
 import Test.Monad.Cont
