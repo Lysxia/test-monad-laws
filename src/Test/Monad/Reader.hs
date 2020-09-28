@@ -10,12 +10,20 @@ import Test.QuickCheck.HigherOrder (Equation(..))
 
 -- * Primary laws
 
+-- | 'ask' idempotence
+-- @
+-- 'ask' '>>' 'ask' = 'ask'
+-- @
 ask_ask
   :: forall m r
   .  MonadReader r m
   => Equation (m r)
 ask_ask = (ask >> ask) :=: ask @r @m
 
+-- | 'local' can be interchanged with fmap
+-- @
+-- 'local' f 'ask' = 'fmap' f 'ask'
+-- @
 local_ask
   :: forall m r
   .  MonadReader r m
@@ -28,12 +36,20 @@ local_ask f = local f ask :=: fmap @m f ask
 
 -- * Secondary laws
 
+-- | 'local' preserves composition
+-- @
+-- 'local' f ('local' g) = 'local (g . f)'
+-- @
 local_local
   :: forall m a r
   .  MonadReader r m
   => (r -> r) -> (r -> r) -> m a -> Equation (m a)
 local_local f g m = local f (local g m) :=: local (g . f) m
 
+-- | 'local' identity
+-- @
+-- 'local' 'id' m = m
+-- @
 local_id
   :: forall m a r
   .  MonadReader r m
