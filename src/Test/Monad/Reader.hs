@@ -10,7 +10,7 @@ import Test.QuickCheck.HigherOrder (Equation(..))
 
 -- * Primary laws
 
--- | 'ask' idempotence
+-- | 'ask' is idempotent
 -- @
 -- 'ask' '>>' 'ask' = 'ask'
 -- @
@@ -46,7 +46,7 @@ local_local
   => (r -> r) -> (r -> r) -> m a -> Equation (m a)
 local_local f g m = local f (local g m) :=: local (g . f) m
 
--- | 'local' identity
+-- | ('local' 'id') is identity on a monadic action.
 -- @
 -- 'local' 'id' m = m
 -- @

@@ -48,9 +48,9 @@ callCC_phantom ::
   Equation (m a)
 callCC_phantom f = callCC f :=: callCC (f . (fmap . fmap) absurd)
 
--- | Left identity on callCC
+-- | The continuation never returns, so g does not matter.
 -- @
--- 'callCC' (\k -> f k '>>=' (\x -> k x '>>=' g k)) = 'callCC' f
+-- 'callCC' (\k -> f k '>>=' (\a -> k a '>>=' g k)) = 'callCC' f
 -- @
 callCC_left_zero ::
   forall m a b.

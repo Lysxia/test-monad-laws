@@ -10,28 +10,28 @@ import Test.QuickCheck.HigherOrder (Equation(..))
 
 -- * 'MonadState' laws
 
--- | 'get' idempotence
+-- | 'get' is idempotent
 -- @
 -- 'get' '>>' 'get' = 'get'
 -- @
 get_get :: forall m s. MonadState s m => Equation (m s)
 get_get = (get >> get) :=: get @_ @m
 
--- | 'get'/'put' identity
+-- | 'get'/'put' identity. ('get' '>>=' 'put') is the same as ('return' ())
 -- @
--- 'get' '>>=' 'put' = 'return' '()'
+-- 'get' '>>=' 'put' = 'return' ()
 -- @
 get_put :: forall m s. MonadState s m => Equation (m ())
 get_put = (get >>= put) :=: return @m ()
 
--- | 'put'/'get' identity
+-- | 'put'/'get' identity. ('put' s '>>' 'get') is the same as ('return' s)
 -- @
 -- 'put s' '>>' 'get' = 'return' s
 -- @
 put_get :: forall m s. MonadState s m => s -> Equation (m s)
 put_get s = (put s >> get) :=: (put s >> return @m s)
 
--- | 'put' absorption
+-- | 'put' absorption. ('put' s1 '>>' 'put' s2) discards the first 'put'
 -- @
 -- 'put s1' '>>' 'put s2' = 'put' s2
 -- @
