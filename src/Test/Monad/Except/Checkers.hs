@@ -27,6 +27,7 @@ checkExcept =
   , ok "catch-throw"  (catch_throw @m @a)
   , ok "catch-catch"  (catch_catch @m @a)  -- this takes one minute in test/prism-error?!
   , ok "catch-return" (catch_return @m @a)
+  , ok "catch-as-try" (catch_as_try @m @a)
   ]
 {-# NOINLINE checkExcept #-}
 

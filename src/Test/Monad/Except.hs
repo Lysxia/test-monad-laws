@@ -51,6 +51,16 @@ catch_bind m k h =
   :=:
   (tryError m >>= either h (\a -> catchError (k a) h))
 
+-- https://www.reddit.com/r/haskell/comments/j22vhh/is_attempt_throwerror_a_valid_minimal_valid/
+catch_as_try
+  :: forall m a e
+  .  MonadError e m
+  => m a -> (e -> m a) -> Equation (m a)
+catch_as_try m h =
+  catchError m h
+  :=:
+  (tryError m >>= either h pure)
+
 -- TODO: remove
 tryError
   :: forall m a e
