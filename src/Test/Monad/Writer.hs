@@ -6,7 +6,7 @@ import Data.Functor (($>))
 import Control.Monad.Writer
 import Test.QuickCheck.HigherOrder (Equation(..))
 
--- | telling two values sequentially is equivalent to monoidally appending the two values then telling once.
+-- | Telling two values sequentially is equivalent to monoidally appending the two values then telling once.
 -- @
 -- 'tell' w1 '>>' 'tell' w2 = 'tell' (w1 '<>' w2)
 -- @
@@ -16,7 +16,7 @@ tell_tell
   => w -> w -> Equation (m ())
 tell_tell w1 w2 = (tell w1 >> tell w2) :=: tell (w1 <> w2)
 
--- | telling a 'mempty' value is equivalent to calling ('return' ())
+-- | telling a 'mempty' value is equivalent to calling ('return' ()).
 -- @
 -- 'tell' 'mempty' == 'return' ()
 -- @
@@ -26,7 +26,7 @@ tell_mempty
   => Equation (m ())
 tell_mempty = tell mempty :=: return ()
 
--- | ('listen' . 'return') lifts a value into a monad and tuples it with 'mempty'
+-- | ('listen' . 'return') lifts a value into a monad and tuples it with 'mempty'.
 -- @
 -- 'listen' ('return' a) = 'return' (a, 'mempty')
 -- @
@@ -82,7 +82,7 @@ listen_pass
 listen_pass m =
   listen (pass m) :=: pass (fmap (\((a, f), w) -> ((a, f w), f)) (listen m))
 
--- | using 'pass' to modify the value in a 'tell' action is equivalent to modifying the value before applying it to the tell action
+-- | Using 'pass' to modify the value in a 'tell' action is equivalent to modifying the value before applying it to the tell action.
 -- @
 -- 'pass' ('tell' w '$>' ((), ,f)) = 'tell' (f w)
 -- @

@@ -10,7 +10,7 @@ import Test.QuickCheck.HigherOrder (Equation(..))
 
 -- * Primary laws
 
--- | 'ask' is idempotent
+-- | 'ask' is idempotent.
 -- @
 -- 'ask' '>>' 'ask' = 'ask'
 -- @
@@ -20,7 +20,7 @@ ask_ask
   => Equation (m r)
 ask_ask = (ask >> ask) :=: ask @r @m
 
--- | 'local' can be interchanged with fmap
+-- | 'local' can be interchanged with fmap.
 -- @
 -- 'local' f 'ask' = 'fmap' f 'ask'
 -- @
@@ -36,7 +36,7 @@ local_ask f = local f ask :=: fmap @m f ask
 
 -- * Secondary laws
 
--- | 'local' preserves composition
+-- | 'local' preserves composition.
 -- @
 -- 'local' f ('local' g) = 'local (g . f)'
 -- @

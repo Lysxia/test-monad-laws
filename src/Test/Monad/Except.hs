@@ -8,7 +8,7 @@ module Test.Monad.Except where
 import Control.Monad.Except
 import Test.QuickCheck.HigherOrder (Equation(..))
 
--- | 'throwError' shortcircuits subsequent computations
+-- | 'throwError' shortcircuits subsequent computations.
 -- @
 -- 'throwError' e '>>=' k = 'throwError' e
 -- @
@@ -18,7 +18,7 @@ throwZero
   => e -> (a -> m b) -> Equation (m b)
 throwZero e k = (throwError e >>= k) :=: throwError @_ @m e
 
--- | 'catchError' absorbs 'throwError'
+-- | 'catchError' absorbs 'throwError'.
 -- @
 -- 'catchError' ('throwError e') h = h e
 -- @
@@ -28,7 +28,7 @@ throw_catch
   => e -> (e -> m a) -> Equation (m a)
 throw_catch e h = catchError (throwError e) h :=: h e
 
--- | 'catchError' with 'throwError' as its error handler is just `m`
+-- | 'catchError' with 'throwError' as its error handler is just `m`.
 -- @
 -- 'catchError' m 'throwError' = m
 -- @
@@ -51,7 +51,7 @@ catch_catch m h1 h2 =
   :=:
   catchError m (\e -> catchError (h1 e) h2)
 
--- | Catching from ('return' a) is equivalent to ('return' a)
+-- | Catching from ('return' a) is equivalent to ('return' a).
 -- @
 -- 'catchError' ('return' a) h = 'return' a
 -- @
