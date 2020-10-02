@@ -13,7 +13,7 @@ import Test.QuickCheck.HigherOrder (Equation(..))
 -- function.
 --
 -- @
---  'callCC' ('const' x) = x
+-- callCC' ('const' x) = x
 -- @
 callCC_const :: forall m a. MonadCont m => m a -> Equation (m a)
 callCC_const m = callCC (const m) :=: m
@@ -41,6 +41,7 @@ callCC_bind m = callCC ((>>=) m) :=: m
 --
 -- @
 -- 'callCC' f = 'callCC' (f . ('fmap' . 'fmap') 'absurd')
+-- @
 callCC_phantom ::
   forall m a b.
   MonadCont m =>
@@ -48,7 +49,7 @@ callCC_phantom ::
   Equation (m a)
 callCC_phantom f = callCC f :=: callCC (f . (fmap . fmap) absurd)
 
--- | The continuation never returns, so g does not matter.
+-- | The continuation never returns, so @g@ does not matter.
 -- @
 -- 'callCC' (\k -> f k '>>=' (\a -> k a '>>=' g k)) = 'callCC' f
 -- @

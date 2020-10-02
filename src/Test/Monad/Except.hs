@@ -20,7 +20,7 @@ throwZero e k = (throwError e >>= k) :=: throwError @_ @m e
 
 -- | 'catchError' absorbs 'throwError'.
 -- @
--- 'catchError' ('throwError e') h = h e
+-- 'catchError' ('throwError' e) h = h e
 -- @
 throw_catch
   :: forall m a e

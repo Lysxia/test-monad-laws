@@ -16,7 +16,7 @@ tell_tell
   => w -> w -> Equation (m ())
 tell_tell w1 w2 = (tell w1 >> tell w2) :=: tell (w1 <> w2)
 
--- | telling a 'mempty' value is equivalent to calling ('return' ()).
+-- | telling a 'mempty' value is equivalent to calling @('return' ())@.
 -- @
 -- 'tell' 'mempty' == 'return' ()
 -- @
@@ -26,7 +26,7 @@ tell_mempty
   => Equation (m ())
 tell_mempty = tell mempty :=: return ()
 
--- | ('listen' . 'return') lifts a value into a monad and tuples it with 'mempty'.
+-- | @('listen' . 'return')@ lifts a value into a monad and tuples it with 'mempty'.
 -- @
 -- 'listen' ('return' a) = 'return' (a, 'mempty')
 -- @
@@ -38,7 +38,10 @@ listen_return a = listen (return a) :=: return (a, mempty)
 
 -- |
 -- @
--- 'listen' (m '>>=' k) = 'listen' m '>>=' \(a, wa) -> 'listen' (k a) >>= \(b, wb) -> 'return' (b, wa '<>' wb)
+-- 'listen' (m '>>=' k)
+-- = 'listen' m '>>=' \(a, wa) ->
+--   'listen' (k a) >>= \(b, wb) ->
+--   'return' (b, wa '<>' wb)
 -- @
 listen_bind
   :: forall m a b w
@@ -50,9 +53,9 @@ listen_bind m k =
     (b, wb) <- listen (k a)
     return (b, wa <> wb)
 
--- | ('listen' . 'tell') tells a value then lifts it into a monad.
+-- | Lifting 'snd' into '@('listen' . 'tell')@ tells a value then lifts it into a monad.
 -- @
--- 'listen' ('tell' w) = 'tell' w '>>' 'return' w
+-- fmap snd ('listen' ('tell' w)) = 'tell' w '>>' 'return' w
 -- @
 listen_tell
   :: forall m w
