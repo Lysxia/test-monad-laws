@@ -38,7 +38,7 @@ local_ask f = local f ask :=: fmap @m f ask
 
 -- | 'local' preserves composition.
 -- @
--- 'local' f ('local' g) = 'local (g . f)'
+-- 'local' f . 'local' g = 'local (g . f)'
 -- @
 local_local
   :: forall m a r
@@ -48,7 +48,7 @@ local_local f g m = local f (local g m) :=: local (g . f) m
 
 -- | ('local' 'id') is identity on a monadic action.
 -- @
--- 'local' 'id' m = m
+-- 'local' 'id' = 'id'
 -- @
 local_id
   :: forall m a r

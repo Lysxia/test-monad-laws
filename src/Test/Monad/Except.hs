@@ -51,7 +51,7 @@ catch_catch m h1 h2 =
   :=:
   catchError m (\e -> catchError (h1 e) h2)
 
--- | Catching from ('return' a) is equivalent to ('return' a).
+-- | Catching from @('return' a)@ is equivalent to @('return' a)@.
 -- @
 -- 'catchError' ('return' a) h = 'return' a
 -- @

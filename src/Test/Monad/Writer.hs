@@ -6,7 +6,7 @@ import Data.Functor (($>))
 import Control.Monad.Writer
 import Test.QuickCheck.HigherOrder (Equation(..))
 
--- | Telling two values sequentially is equivalent to monoidally appending the two values then telling once.
+-- | Telling two values sequentially is equivalent to appending the two values then telling once.
 -- @
 -- 'tell' w1 '>>' 'tell' w2 = 'tell' (w1 '<>' w2)
 -- @
