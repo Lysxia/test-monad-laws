@@ -43,7 +43,7 @@ liftWith_lift m = liftControl @t m :=: lift m
 
 -- |
 -- @
--- ('liftWith' (\run -> run t) '>>=' 'restoreT' . 'return') = t
+-- ('liftWith' (\\run -> run t) '>>=' 'restoreT' . 'return') = t
 -- @
 liftWith_restoreT
   :: forall t m a
@@ -66,7 +66,7 @@ liftBaseWith_liftBase n = liftBaseControl @m n :=: liftBase n
 
 -- |
 -- @
--- ('liftBaseWith' (\run -> run m ) '>>=' 'restoreM') = m
+-- ('liftBaseWith' (\\run -> run m ) '>>=' 'restoreM') = m
 -- @
 liftBaseWith_restoreM
   :: forall m a n

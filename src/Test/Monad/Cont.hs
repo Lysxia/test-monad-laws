@@ -51,7 +51,7 @@ callCC_phantom f = callCC f :=: callCC (f . (fmap . fmap) absurd)
 
 -- | The continuation never returns, so @g@ does not matter.
 -- @
--- 'callCC' (\k -> f k '>>=' (\a -> k a '>>=' g k)) = 'callCC' f
+-- 'callCC' (\\k -> f k '>>=' (\\a -> k a '>>=' g k)) = 'callCC' f
 -- @
 callCC_left_zero ::
   forall m a b.

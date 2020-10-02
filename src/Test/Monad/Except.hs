@@ -40,7 +40,7 @@ catch_throw m = catchError m throwError :=: m
 
 -- | Catching a catch will handle a failure in the monadic action and then handle a failure in the handler.
 -- @
--- 'catchError' ('catchError' m h1) h2 = 'catchError' m (\e -> 'catchError' (h1 e) h2)
+-- 'catchError' ('catchError' m h1) h2 = 'catchError' m (\\e -> 'catchError' (h1 e) h2)
 -- @
 catch_catch
   :: forall m a e

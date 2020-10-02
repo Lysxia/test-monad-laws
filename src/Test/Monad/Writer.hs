@@ -39,8 +39,8 @@ listen_return a = listen (return a) :=: return (a, mempty)
 -- |
 -- @
 -- 'listen' (m '>>=' k)
--- = 'listen' m '>>=' \(a, wa) ->
---   'listen' (k a) >>= \(b, wb) ->
+-- = 'listen' m '>>=' \\(a, wa) ->
+--   'listen' (k a) >>= \\(b, wb) ->
 --   'return' (b, wa '<>' wb)
 -- @
 listen_bind
@@ -66,7 +66,7 @@ listen_tell w =
 
 -- |
 -- @
--- 'listen' ('listen' m) = 'fmap' (\(a, w) -> ((a, w), w)) ('listen' m)
+-- 'listen' ('listen' m) = 'fmap' (\\(a, w) -> ((a, w), w)) ('listen' m)
 -- @
 listen_listen
   :: forall m a w
@@ -76,7 +76,7 @@ listen_listen m = listen (listen m) :=: fmap (\(a, w) -> ((a, w), w)) (listen m)
 
 -- |
 -- @
--- 'listen' ('pass' m) = 'pass' ('fmap' (\((a, f), w) ->  ((a, f w), f)) ('listen' m))
+-- 'listen' ('pass' m) = 'pass' ('fmap' (\\((a, f), w) ->  ((a, f w), f)) ('listen' m))
 -- @
 listen_pass
   :: forall m a w
