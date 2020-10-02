@@ -20,7 +20,7 @@ ask_ask
   => Equation (m r)
 ask_ask = (ask >> ask) :=: ask @r @m
 
--- | 'local' can be interchanged with fmap.
+-- | Modifying the environment then asking for it is the same as asking for the environment then modifying it.
 -- @
 -- 'local' f 'ask' = 'fmap' f 'ask'
 -- @
