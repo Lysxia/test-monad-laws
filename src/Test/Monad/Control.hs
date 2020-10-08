@@ -17,9 +17,6 @@ import Test.Monad.Morph
 
 -- * 'MonadState' laws
 
-liftControl :: forall t m a. (MonadTransControl t, Monad m) => m a -> t m a
-liftControl m = liftWith (\_ -> m)
-
 -- | Implied by 'liftWith_lift'.
 liftWith_return
   :: forall t m a
@@ -73,3 +70,8 @@ liftBaseWith_restoreM
   .  MonadBaseControl n m
   => m a -> Equation (m a)
 liftBaseWith_restoreM m = (liftBaseWith (\run -> run m) >>= restoreM) :=: m
+
+-- * Helpers
+
+liftControl :: forall t m a. (MonadTransControl t, Monad m) => m a -> t m a
+liftControl m = liftWith (\_ -> m)

@@ -8,9 +8,8 @@ module Test.Monad.Reader where
 import Control.Monad.Reader
 import Test.QuickCheck.HigherOrder (Equation(..))
 
--- * Primary laws
-
 -- | 'ask' is idempotent.
+--
 -- @
 -- 'ask' '>>' 'ask' = 'ask'
 -- @
@@ -21,6 +20,7 @@ ask_ask
 ask_ask = (ask >> ask) :=: ask @r @m
 
 -- | Modifying the environment then asking for it is the same as asking for the environment then modifying it.
+--
 -- @
 -- 'local' f 'ask' = 'fmap' f 'ask'
 -- @
@@ -34,11 +34,10 @@ local_ask f = local f ask :=: fmap @m f ask
 -- - 'local' and 'reader' should be monad homomorphisms.
 -- - 'ask' should have no effect.
 
--- * Secondary laws
-
 -- | 'local' preserves composition.
+--
 -- @
--- 'local' f . 'local' g = 'local (g . f)'
+-- 'local' f . 'local' g = 'local' (g . f)
 -- @
 local_local
   :: forall m a r
@@ -46,7 +45,8 @@ local_local
   => (r -> r) -> (r -> r) -> m a -> Equation (m a)
 local_local f g m = local f (local g m) :=: local (g . f) m
 
--- | ('local' 'id') is identity on a monadic action.
+-- | @'local' 'id'@ is identity on a monadic action.
+--
 -- @
 -- 'local' 'id' = 'id'
 -- @

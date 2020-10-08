@@ -13,7 +13,7 @@ import Test.QuickCheck.HigherOrder (Equation(..))
 -- function.
 --
 -- @
--- callCC' ('const' x) = x
+-- 'callCC' ('const' x) = x
 -- @
 callCC_const :: forall m a. MonadCont m => m a -> Equation (m a)
 callCC_const m = callCC (const m) :=: m
@@ -28,28 +28,29 @@ callCC_id :: forall m a. MonadCont m => a -> Equation (m a)
 callCC_id a = callCC ($ a) :=: pure a
 
 -- | The continuation given returns the value passed to it, whether it's pure or
--- in the \'context\' of some effect.
+-- in the \"context\" of some effect.
 --
 -- @
--- 'callCC' (('>>=') m) = m
+-- 'callCC' (\\k -> m '>>=' k) = m
 -- @
 callCC_bind :: forall m a. MonadCont m => m a -> Equation (m a)
 callCC_bind m = callCC ((>>=) m) :=: m
 
--- | The return type of the continuation is effectively 'm Void'; it will never
--- actually \'return\'.
+-- | The return type of the continuation is effectively @m Void@; it will never
+-- actually 'return'.
 --
 -- @
--- 'callCC' f = 'callCC' (f . ('fmap' . 'fmap') 'absurd')
+-- 'callCC' f = 'callCC' (\\k -> f ('fmap' 'absurd' . k))
 -- @
 callCC_phantom ::
   forall m a b.
   MonadCont m =>
   ((a -> m b) -> m a) ->
   Equation (m a)
-callCC_phantom f = callCC f :=: callCC (f . (fmap . fmap) absurd)
+callCC_phantom f = callCC f :=: callCC (\k -> f (fmap absurd . k))
 
 -- | The continuation never returns, so @g@ does not matter.
+--
 -- @
 -- 'callCC' (\\k -> f k '>>=' (\\a -> k a '>>=' g k)) = 'callCC' f
 -- @
