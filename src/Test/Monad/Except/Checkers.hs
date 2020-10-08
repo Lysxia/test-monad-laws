@@ -39,10 +39,10 @@ checkExcept_ =
 
 checkExcept' :: [(String, Property)]
 checkExcept' =
-  [ ok "catch-bind-e"      (catch_bind @(Except Int) @Int @Int)
-  , ko "catch-bind-se"     (catch_bind @(StateT Int (Either Int)) @Int @Int)
-  , ok "catch-bind-es"     (catch_bind @(ExceptT Int (State Int)) @Int @Int)
-  , ko "catch-bind-ses"    (catch_bind @(StateT Int (ExceptT Int (State Int))) @Int @Int)
+  [ ok "bad-catch-bind-2-e"      (bad_catch_bind_2 @(Except Int) @Int @Int)
+  , ko "bad-catch-bind-2-se"     (bad_catch_bind_2 @(StateT Int (Either Int)) @Int @Int)
+  , ok "bad-catch-bind-2-es"     (bad_catch_bind_2 @(ExceptT Int (State Int)) @Int @Int)
+  , ko "bad-catch-bind-2-ses"    (bad_catch_bind_2 @(StateT Int (ExceptT Int (State Int))) @Int @Int)
 
   , ko "bad-throwZero"     (bad_throwZero @(Except Int) @Int @Int)
   , ko "bad-throw-catch"   (bad_throw_catch @(Except Int) @Int)
@@ -58,6 +58,6 @@ checkExcept' =
 
   , ko "mut-2-throw-catch" (throw_catch @(MutantExcept2 Int) @Int)
   , ko "mut-2-catch-catch" (catch_catch @(MutantExcept2 Int) @Int)
-  , ko "mut-2-catch-bind"  (catch_bind @(MutantExcept2 Int) @Int @Int)
+  , ko "mut-2-catch-bind"  (bad_catch_bind_2 @(MutantExcept2 Int) @Int @Int)
   ]
 {-# NOINLINE checkExcept' #-}

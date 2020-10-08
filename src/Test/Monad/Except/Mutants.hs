@@ -53,6 +53,22 @@ bad_catch_bind m k h =
   :=:
   (m >>= \x -> catchError (k x) h)
 
+-- Broken by @StateT s (Except e)@.
+bad_catch_bind_2
+  :: forall m a b e
+  .  MonadError e m
+  => m a -> (a -> m b) -> (e -> m b) -> Equation (m b)
+bad_catch_bind_2 m k h =
+  catchError (m >>= k) h
+  :=:
+  (tryError m >>= either h (\a -> catchError (k a) h))
+
+tryError
+  :: forall m a e
+  .  MonadError e m
+  => m a -> m (Either e a)
+tryError m = catchError (fmap Right m) (pure . Left)
+
 ---
 
 data CatchDoesNothing
